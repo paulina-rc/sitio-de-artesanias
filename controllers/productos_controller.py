@@ -20,6 +20,8 @@ Estructura de cada artículo:
 # Fuente de datos en memoria
 # ---------------------------------------------------------------------------
 
+from controllers.db import *
+
 articulos = [
     {
         "id": 1,
@@ -92,48 +94,69 @@ articulos = [
 # Funciones de consulta (API del controlador)
 # ---------------------------------------------------------------------------
 
-def get_todos_los_articulos():
-    """
-    Retorna el catálogo completo de artículos.
 
-    Returns:
-        list[dict]: Lista con todos los artículos disponibles.
-    """
+
+def get_todos_los_articulos():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM productos")
+    datos = cursor.fetchall()
+
+    articulos = []
+    for fila in datos:
+        articulos.append({
+            "id": fila[0],
+            "nombre": fila[1],
+            "descripcion": fila[2],
+            "precio": fila[3],
+            "categoria": fila[4],
+            "imagen": fila[5]
+        })
+
+    conn.close()
     return articulos
 
 
 def get_articulo_por_id(articulo_id):
-    """
-    Busca y retorna un artículo por su identificador único.
+    conn = conectar()
+    cursor = conn.cursor()
 
-    Recorre la lista hasta encontrar la primera coincidencia.
-    Si no existe ningún artículo con ese id, retorna None.
+    cursor.execute("SELECT * FROM productos WHERE id = %s", (articulo_id,))
+    fila = cursor.fetchone()
 
-    Args:
-        articulo_id (int): Identificador del artículo a buscar.
+    conn.close()
 
-    Returns:
-        dict | None: Diccionario con los datos del artículo,
-                     o None si no se encontró.
-    """
-    for articulo in articulos:
-        if articulo["id"] == articulo_id:
-            return articulo
+    if fila:
+        return {
+            "id": fila[0],
+            "nombre": fila[1],
+            "descripcion": fila[2],
+            "precio": fila[3],
+            "categoria": fila[4],
+            "imagen": fila[5]
+        }
     return None
 
 
 def get_articulos_por_categoria(categoria):
-    """
-    Filtra los artículos que pertenecen a una categoría dada.
+    conn = conectar()
+    cursor = conn.cursor()
 
-    La comparación se realiza en minúsculas para que sea insensible
-    a mayúsculas (p. ej. "Tejidos" == "tejidos").
+    cursor.execute("SELECT * FROM productos WHERE categoria = %s", (categoria,))
+    datos = cursor.fetchall()
 
-    Args:
-        categoria (str): Nombre de la categoría a filtrar.
+    conn.close()
 
-    Returns:
-        list[dict]: Lista de artículos que coinciden con la categoría.
-                    Retorna una lista vacía si no hay coincidencias.
-    """
-    return [a for a in articulos if a["categoria"].lower() == categoria.lower()]
+    articulos = []
+    for fila in datos:
+        articulos.append({
+            "id": fila[0],
+            "nombre": fila[1],
+            "descripcion": fila[2],
+            "precio": fila[3],
+            "categoria": fila[4],
+            "imagen": fila[5]
+        })
+
+    return articulos

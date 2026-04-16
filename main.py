@@ -94,6 +94,10 @@ def contactenos():
 
     return render_template("contactenos.html")
 
+@app.route("/crud")
+def crud():
+    return render_template("crud.html")
+
 
 # ---------------------------------------------------------------------------
 # Arranque del servidor de desarrollo
