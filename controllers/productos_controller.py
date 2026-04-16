@@ -20,81 +20,11 @@ Estructura de cada artículo:
 # Fuente de datos en memoria
 # ---------------------------------------------------------------------------
 
-from controllers.db import *
-
-articulos = [
-    {
-        "id": 1,
-        "nombre": "Jarron de Barro Pintado",
-        "descripcion": "Jarron elaborado a mano con barro negro, decorado con motivos florales tradicionales.",
-        "precio": 85000,
-        "categoria": "Ceramica",
-        "imagen": "jarron.jpg"
-    },
-    {
-        "id": 2,
-        "nombre": "Mochila Wayuu",
-        "descripcion": "Bolso tejido a mano por comunidades indigenas con hilos de colores vibrantes.",
-        "precio": 120000,
-        "categoria": "Tejidos",
-        "imagen": "mochila.jpg"
-    },
-    {
-        "id": 3,
-        "nombre": "Mascara Tallada en Madera",
-        "descripcion": "Mascara decorativa tallada en cedro, inspirada en rituales ancestrales.",
-        "precio": 95000,
-        "categoria": "Madera",
-        "imagen": "mascara.jpg"
-    },
-    {
-        "id": 4,
-        "nombre": "Canasto de Palma",
-        "descripcion": "Canasto tejido con palma de iraca, ideal para almacenamiento y decoracion.",
-        "precio": 45000,
-        "categoria": "Fibras Naturales",
-        "imagen": "canasto.jpg"
-    },
-    {
-        "id": 5,
-        "nombre": "Collar de Chaquiras",
-        "descripcion": "Collar elaborado con cuentas de vidrio multicolor siguiendo patrones tradicionales.",
-        "precio": 35000,
-        "categoria": "Joyeria",
-        "imagen": "collar.jpg"
-    },
-    {
-        "id": 6,
-        "nombre": "Tapiz Bordado",
-        "descripcion": "Tapiz de lino bordado a mano con escenas de paisajes campesinos colombianos.",
-        "precio": 150000,
-        "categoria": "Bordados",
-        "imagen": "tapiz.jpg"
-    },
-    {
-        "id": 7,
-        "nombre": "Figura de Totumo",
-        "descripcion": "Recipiente decorativo elaborado con totumo natural, tallado y pintado a mano.",
-        "precio": 28000,
-        "categoria": "Artesania Natural",
-        "imagen": "totumo.jpg"
-    },
-    {
-        "id": 8,
-        "nombre": "Sombrero Vueltiao",
-        "descripcion": "Sombrero tipico colombiano tejido con caña flecha, declarado patrimonio cultural.",
-        "precio": 200000,
-        "categoria": "Sombreros",
-        "imagen": "sombrero.jpg"
-    }
-]
-
+from controllers.db import conectar
 
 # ---------------------------------------------------------------------------
 # Funciones de consulta (API del controlador)
 # ---------------------------------------------------------------------------
-
-
 
 def get_todos_los_articulos():
     conn = conectar()
