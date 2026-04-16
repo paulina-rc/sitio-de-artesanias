@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block titulo %}Productos — Artesanías del Campo{% endblock %}
+
+{% block contenido %}
+
+<section class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Nuestros Productos</h2>
+        <p class="text-muted">Descubre nuestra colección de artesanías únicas, elaboradas con dedicación y amor.</p>
+    </div>
+
+    <div class="row g-4">
+        {% for articulo in articulos %}
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm producto-card">
+                <div class="card-img-placeholder d-flex align-items-center justify-content-center bg-secondary-subtle">
+                    <span class="text-muted small">{{ articulo.categoria }}</span>
+                </div>
+                <div class="card-body">
+                    <span class="badge bg-warning text-dark mb-2">{{ articulo.categoria }}</span>
+                    <h5 class="card-title">{{ articulo.nombre }}</h5>
+                    <p class="card-text text-muted small">{{ articulo.descripcion }}</p>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-success fs-5">
+                        ${{ "{:,}".format(articulo.precio) }}
+                    </span>
+                    <a href="{{ url_for('contactenos') }}" class="btn btn-sm btn-dark">Consultar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

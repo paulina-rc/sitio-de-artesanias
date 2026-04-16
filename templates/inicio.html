@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{# Sobreescribe el bloque 'titulo' definido en base.html #}
+{% block titulo %}Inicio — Artesanías del Campo{% endblock %}
+
+{% block contenido %}
+
+<!-- ================================================================
+     Sección hero
+     - Ocupa el ancho completo de la ventana (ver .hero en style.css).
+     - Presenta el nombre de la tienda, un eslogan y un CTA principal
+       que lleva al catálogo de productos.
+================================================================ -->
+<section class="hero text-white text-center d-flex align-items-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Bienvenidos a Artesanías del Campo</h1>
+        <p class="lead mt-3">Piezas únicas elaboradas a mano con materiales naturales y técnicas ancestrales.</p>
+        <a href="{{ url_for('productos') }}" class="btn btn-warning btn-lg mt-3">Ver Productos</a>
+    </div>
+</section>
+
+<!-- ================================================================
+     Sección de propuesta de valor
+     - Tres tarjetas Bootstrap que destacan los diferenciadores clave
+       de la tienda: fabricación artesanal, materiales naturales y
+       tradición ancestral.
+     - La clase 'g-4' agrega gutters (separación) entre columnas.
+================================================================ -->
+<section class="container my-5">
+    <h2 class="text-center mb-4">¿Por qué elegirnos?</h2>
+    <div class="row g-4 text-center">
+
+        <!-- Tarjeta 1: Hecho a Mano -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="icono-feature mb-3">🤲</div>
+                    <h5 class="card-title">Hecho a Mano</h5>
+                    <p class="card-text">Cada pieza es elaborada artesanalmente por maestros con décadas de experiencia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Materiales Naturales -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="icono-feature mb-3">🌿</div>
+                    <h5 class="card-title">Materiales Naturales</h5>
+                    <p class="card-text">Usamos barro, madera, fibras y tintes 100% naturales y sostenibles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3: Tradición Ancestral -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="icono-feature mb-3">🏛️</div>
+                    <h5 class="card-title">Tradición Ancestral</h5>
+                    <p class="card-text">Técnicas transmitidas de generación en generación en comunidades indígenas y campesinas.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================================================================
+     Llamado a la acción secundario
+     - Invita al usuario a visitar la página de contacto para consultas
+       o pedidos especiales.
+================================================================ -->
+<section class="bg-light py-5 text-center">
+    <div class="container">
+        <h3>¿Tienes alguna pregunta o pedido especial?</h3>
+        <p class="text-muted">Nuestro equipo está listo para atenderte.</p>
+        <a href="{{ url_for('contactenos') }}" class="btn btn-dark btn-lg">Contáctanos</a>
+    </div>
+</section>
+
+{% endblock %}

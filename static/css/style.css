@@ -1,0 +1,59 @@
+/* ===== Hero ===== */
+.hero {
+    background: linear-gradient(135deg, #3e2723 0%, #6d4c41 50%, #a1887f 100%);
+    min-height: 420px;
+    padding: 80px 20px;
+}
+
+/* ===== Navbar ===== */
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #ffc107;
+    color: #ffc107 !important;
+}
+
+/* ===== Cards de productos ===== */
+.producto-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-img-placeholder {
+    height: 160px;
+    background-color: #ede0d4;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #888;
+}
+
+/* ===== Iconos en inicio ===== */
+.icono-feature {
+    font-size: 2.8rem;
+}
+
+/* ===== Footer ===== */
+.footer {
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+}
+
+/* ===== Formulario ===== */
+.form-control:focus {
+    border-color: #6d4c41;
+    box-shadow: 0 0 0 0.2rem rgba(109, 76, 65, 0.25);
+}
+
+.btn-dark:hover {
+    background-color: #6d4c41;
+    border-color: #6d4c41;
+}
