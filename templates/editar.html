@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar Producto{% endblock %}
+
+{% block contenido %}
+
+<section class="container my-5">
+
+    <h2 class="mb-4">Editar Producto</h2>
+
+    <form method="POST" action="/actualizar/{{ articulo.id }}">
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control" value="{{ articulo.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <input type="text" name="descripcion" class="form-control" value="{{ articulo.descripcion }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Precio</label>
+            <input type="number" name="precio" class="form-control" value="{{ articulo.precio }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <input type="text" name="categoria" class="form-control" value="{{ articulo.categoria }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a href="/crud" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</section>
+
+{% endblock %}

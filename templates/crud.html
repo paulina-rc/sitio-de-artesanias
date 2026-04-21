@@ -13,7 +13,7 @@
 
     <!-- FORMULARIO -->
     <div class="card shadow-sm border-0 p-4 mb-5">
-        <form method="POST" action="/agregar">
+        <form method="POST" action="/agregar" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
@@ -33,6 +33,11 @@
             <div class="mb-3">
                 <label class="form-label">Categoría</label>
                 <input type="text" class="form-control" name="categoria" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Imagen</label>
+                <input type="file" class="form-control" name="imagen" required>
             </div>
 
             <button type="submit" class="btn btn-dark">Registrar producto</button>

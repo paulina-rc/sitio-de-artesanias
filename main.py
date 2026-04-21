@@ -45,6 +45,8 @@ def crud():
 
 
 #INSERTAR PRODUCTO
+import os
+
 @app.route("/agregar", methods=["POST"])
 def agregar():
     conn = conectar()
@@ -55,10 +57,16 @@ def agregar():
     precio = request.form["precio"]
     categoria = request.form["categoria"]
 
+    imagen = request.files["imagen"]
+    nombre_imagen = imagen.filename
+
+    ruta = os.path.join("static/img", nombre_imagen)
+    imagen.save(ruta)
+
     cursor.execute("""
         INSERT INTO productos (nombre, descripcion, precio, categoria, imagen)
         VALUES (%s, %s, %s, %s, %s)
-    """, (nombre, descripcion, precio, categoria, "default.jpg"))
+    """, (nombre, descripcion, precio, categoria, nombre_imagen))
 
     conn.commit()
     conn.close()
@@ -72,6 +80,34 @@ def eliminar(id):
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM productos WHERE id = %s", (id,))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/crud")
+
+#EDITAR PRODUCTOS
+@app.route("/editar/<int:id>")
+def editar(id):
+    articulo = get_articulo_por_id(id)
+    return render_template("editar.html", articulo=articulo)
+
+#ACTUALIZAR 
+@app.route("/actualizar/<int:id>", methods=["POST"])
+def actualizar(id):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    nombre = request.form["nombre"]
+    descripcion = request.form["descripcion"]
+    precio = request.form["precio"]
+    categoria = request.form["categoria"]
+
+    cursor.execute("""
+        UPDATE productos
+        SET nombre=%s, descripcion=%s, precio=%s, categoria=%s
+        WHERE id=%s
+    """, (nombre, descripcion, precio, categoria, id))
 
     conn.commit()
     conn.close()

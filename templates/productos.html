@@ -14,9 +14,7 @@
         {% for articulo in articulos %}
         <div class="col-sm-6 col-lg-4 col-xl-3">
             <div class="card h-100 shadow-sm producto-card">
-                <div class="card-img-placeholder d-flex align-items-center justify-content-center bg-secondary-subtle">
-                    <span class="text-muted small">{{ articulo.categoria }}</span>
-                </div>
+                <img src="{{ url_for('static', filename='img/' + articulo.imagen) }}" class="card-img-top">
                 <div class="card-body">
                     <span class="badge bg-warning text-dark mb-2">{{ articulo.categoria }}</span>
                     <h5 class="card-title">{{ articulo.nombre }}</h5>
