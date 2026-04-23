@@ -172,6 +172,33 @@ def agregar_usuario():
 
     return redirect("/crud_usuarios")
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        usuario = request.form["usuario"]
+        password = request.form["password"]
+
+        conn = conectar()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT * FROM usuarios 
+            WHERE usuario=%s AND password=%s AND estado=1
+        """, (usuario, password))
+
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session["usuario"] = user[2]
+            session["tipo"] = user[4]
+
+            return redirect("/")
+        else:
+            flash("Credenciales incorrectas", "danger")
+
+    return render_template("login.html")
+
 
 # ---------------------------------------------------------------------------
 # Arranque del servidor
