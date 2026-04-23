@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block titulo %}CRUD Usuarios{% endblock %}
+
+{% block contenido %}
+
+<section class="container my-5">
+
+    <h2 class="mb-4">Gestión de Usuarios</h2>
+
+    <!-- FORMULARIO -->
+    <div class="card p-4 mb-5">
+        <form method="POST" action="/agregar_usuario">
+
+            <input type="text" name="nombre" placeholder="Nombre" class="form-control mb-2" required>
+            <input type="text" name="usuario" placeholder="Usuario" class="form-control mb-2" required>
+            <input type="password" name="password" placeholder="Contraseña" class="form-control mb-2" required>
+
+            <!-- selector de tipo  -->
+            <select name="tipo" class="form-control mb-2" required>
+                <option value="">Tipo</option>
+                <option value="1">Administrador</option>
+                <option value="2">Usuario</option>
+            </select>
+
+            <!-- selector de estado -->
+            <select name="estado" class="form-control mb-3" required>
+                <option value="">Estado</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+
+            <button type="submit" class="btn btn-dark">Agregar Usuario</button>
+
+        </form>
+    </div>
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.usuario }}</td>
+                <td>
+                    {% if u.tipo == 1 %} Admin {% else %} Usuario {% endif %}
+                </td>
+                <td>
+                    {% if u.estado == 1 %} Activo {% else %} Inactivo {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+{% endblock %}

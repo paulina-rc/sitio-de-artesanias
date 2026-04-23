@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, session
 from controllers.productos_controller import *
 from controllers.db import conectar
 
@@ -29,19 +29,54 @@ def contactenos():
         mensaje = request.form.get("mensaje")
 
         if nombre and email and mensaje:
-            flash(f"Gracias {nombre}, tu mensaje fue enviado correctamente.", "success")
-            flash(f"Gracias otra vez {nombre}, tu mensaje fue enviado correctamente.", "success")
+            conn = conectar()
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                INSERT INTO mensajes (nombre, email, mensaje)
+                VALUES (%s, %s, %s)
+            """, (nombre, email, mensaje))
+
+            conn.commit()
+            conn.close()
+
+            flash("Mensaje enviado correctamente", "success")
         else:
             flash("Por favor completa todos los campos.", "danger")
 
     return render_template("contactenos.html")
 
-
-#VISTA CRUD
+#VISTA DE LOS CRUDS
 @app.route("/crud")
 def crud():
     articulos = get_todos_los_articulos()
     return render_template("crud.html", articulos=articulos)
+
+@app.route("/crud_usuarios")
+def crud_usuarios():
+    if "tipo" not in session or session["tipo"] != 1:
+        return redirect("/login")
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM usuarios")
+    datos = cursor.fetchall()
+
+    usuarios = []
+    for fila in datos:
+        usuarios.append({
+            "id": fila[0],
+            "nombre": fila[1],
+            "usuario": fila[2],
+            "password": fila[3],
+            "tipo": fila[4],
+            "estado": fila[5]
+        })
+
+    conn.close()
+
+    return render_template("usuarios.html", usuarios=usuarios)
 
 
 #INSERTAR PRODUCTO
@@ -113,6 +148,29 @@ def actualizar(id):
     conn.close()
 
     return redirect("/crud")
+
+
+#AGREGAR USUARIO 
+@app.route("/agregar_usuario", methods=["POST"])
+def agregar_usuario():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    nombre = request.form["nombre"]
+    usuario = request.form["usuario"]
+    password = request.form["password"]
+    tipo = request.form["tipo"]
+    estado = request.form["estado"]
+
+    cursor.execute("""
+        INSERT INTO usuarios (nombre, usuario, password, tipo, estado)
+        VALUES (%s, %s, %s, %s, %s)
+    """, (nombre, usuario, password, tipo, estado))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/crud_usuarios")
 
 
 # ---------------------------------------------------------------------------
