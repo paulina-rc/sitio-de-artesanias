@@ -1,4 +1,4 @@
-# Artesanías del Campo
+# Handcraft Shop
 A full-stack web application for a handcraft shop, built with **Python Flask** and **MySQL**. Browse, manage, and showcase traditional handmade artisan products with a clean and responsive interface.
 
 ## Preview
